@@ -1,6 +1,11 @@
 import { Seller } from "./seller.dto";
 
-export type SortBy = "orderId" | "product" | "seller" | "country" | "price";
+export type SortBy =
+  | "orderId"
+  | "product"
+  | "seller.name"
+  | "country"
+  | "price";
 export type SortOrder = "ASC" | "DESC";
 
 export interface IOrder {
@@ -18,6 +23,11 @@ export interface ListReq {
   order: SortOrder;
 }
 
-export type ListRes = IOrder[];
+export type ListRes = {
+  data: IOrder[];
+  total: number;
+  page: number;
+  limit: number;
+};
 
 export * as Order from "./order.dto";
