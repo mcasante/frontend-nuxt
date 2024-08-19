@@ -12,13 +12,15 @@ export function useOrders() {
   const page = ref(1);
   const pageCount = ref(5);
   const total = ref(0);
+  const sellerIds = ref<number[] | undefined>(undefined);
 
-  const listOrdersQuery = computed(() => {
+  const listOrdersQuery = computed<Order.ListReq>(() => {
     return {
       page: page.value,
       limit: pageCount.value,
-      sort: sort.value.column,
-      order: sort.value.direction.toUpperCase(),
+      sort: sort.value.column as Order.SortBy,
+      order: sort.value.direction.toUpperCase() as Order.SortOrder,
+      "sellerIds[]": sellerIds.value,
     };
   });
 
@@ -39,6 +41,7 @@ export function useOrders() {
   return {
     sort,
     page,
+    sellerIds,
     pageCount,
     total,
     orders,

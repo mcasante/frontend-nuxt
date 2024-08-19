@@ -21,6 +21,7 @@ export interface ListReq {
   limit: number;
   sort: SortBy;
   order: SortOrder;
+  "sellerIds[]"?: number[];
 }
 
 export type ListRes = {

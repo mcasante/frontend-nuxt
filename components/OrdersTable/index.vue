@@ -43,7 +43,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <u-card class="mt-8">
+  <u-card>
     <u-table
       sort-mode="manual"
       :loading-state="loadingStateProps"
