@@ -21,6 +21,10 @@ const columns = [
 
 const page = ref(1);
 const pageCount = ref(5);
+const pageFrom = computed(() => (page.value - 1) * pageCount.value + 1);
+const pageTo = computed(() =>
+  Math.min(page.value * pageCount.value, total.value)
+);
 const total = ref(0);
 
 const listOrdersQuery = computed(() => {
@@ -60,7 +64,18 @@ const pending = computed(() => status.value === "pending");
       v-model:sort="sort"
     />
     <template #footer>
-      <div class="flex justify-end px-3 mb-4">
+      <div class="flex flex-wrap justify-between items-center px-3 mb-4">
+        <div>
+          <span class="text-sm leading-5">
+            Showing
+            <span class="font-medium">{{ pageFrom }}</span>
+            to
+            <span class="font-medium">{{ pageTo }}</span>
+            of
+            <span class="font-medium">{{ total }}</span>
+            results
+          </span>
+        </div>
         <UPagination v-model="page" :page-count="pageCount" :total="total" />
       </div>
     </template>
