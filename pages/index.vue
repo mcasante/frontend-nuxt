@@ -26,7 +26,6 @@ watch(selectedSellers, () => {
       <seller-card v-for="seller in sellers" :seller="seller" />
     </div>
 
-    {{ sellerIds }}
     <div class="flex justify-end mt-8 mb-4">
       <USelectMenu
         v-if="sellers.length > 1"
