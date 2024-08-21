@@ -1,75 +1,35 @@
-# Nuxt 3 Minimal Starter
+# Nuxt App
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Overview
 
-## Setup
+This is a frontend application built with Nuxt 3, designed to work with the [backend-njs](https://github.com/mcasante/backend-njs) application. It uses Nuxt 3 and Nuxt UI to provide a modern development experience.
 
-Make sure to install the dependencies:
+## Prerequisites
+
+- **Node.js** v16.x or higher
+- **pnpm** v8.x or higher
+
+_\* Note: I use `pnpm` as the package manager, but you can use `npm`, `yarn` or `bun` if you prefer._
+
+## Installation
 
 ```bash
-# npm
-npm install
-
-# pnpm
+# Install dependencies
 pnpm install
 
-# yarn
-yarn install
-
-# bun
-bun install
+# Copy the environment variables
+cp .env.example .env
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+## Running the app
 
 ```bash
-# npm
-npm run dev
+# Start the development server
+pnpm dev
 
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+# Open the app
+open http://localhost:3000
 ```
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+> [!IMPORTANT]  
+> The backend application must be running in order to properly run this frontend application.
