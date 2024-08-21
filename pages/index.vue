@@ -23,28 +23,42 @@ watch(selectedSellers, () => {
 </script>
 
 <template>
-  <div class="flex gap-4 justify-end">
-    <seller-card v-for="seller in sellers" :seller="seller" />
-  </div>
+  <div id="dashboard">
+    <div class="flex gap-4 justify-end">
+      <seller-card v-for="seller in sellers" :seller="seller" />
+    </div>
 
-  {{ sellerIds }}
-  <div class="flex justify-end mt-8 mb-4">
-    <USelectMenu
-      v-if="sellers.length > 1"
-      :options="sellerOptions"
-      v-model="selectedSellers"
-      placeholder="Filter by seller"
-      multiple
-      value-attribute="id"
+    {{ sellerIds }}
+    <div class="flex justify-end mt-8 mb-4">
+      <USelectMenu
+        v-if="sellers.length > 1"
+        :options="sellerOptions"
+        v-model="selectedSellers"
+        placeholder="Filter by seller"
+        multiple
+        value-attribute="id"
+      />
+    </div>
+
+    <orders-table
+      v-model:sort="sort"
+      v-model:page="page"
+      :pageCount="pageCount"
+      :total="total"
+      :orders="orders"
+      :pending="pending"
     />
   </div>
-
-  <orders-table
-    v-model:sort="sort"
-    v-model:page="page"
-    :pageCount="pageCount"
-    :total="total"
-    :orders="orders"
-    :pending="pending"
-  />
 </template>
+
+<style>
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.4s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
+}
+</style>

@@ -1,3 +1,11 @@
+<script setup lamg="ts">
+const navLinks = [
+  { label: "the backend", hash: "#backend" },
+  { label: "the frontend", hash: "#frontend" },
+  { label: "about me", hash: "#about-me" },
+];
+</script>
+
 <template>
   <header
     class="flex justify-center shadow-md"
@@ -8,24 +16,25 @@
         <h1>Dashboard</h1>
       </u-link>
 
-      <u-link
-        to="/frontend"
-        active-class="text-primary"
-        inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-        >frontend</u-link
-      >
-      <u-link
-        to="/backend"
-        active-class="text-primary"
-        inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-        >backend</u-link
-      >
-      <u-link
-        to="/about-me"
-        active-class="text-primary"
-        inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-        >about me</u-link
-      >
+      <client-only>
+        <u-link
+          v-for="link in navLinks"
+          :key="link.hash"
+          :to="{ path: '/about', hash: link.hash }"
+          exact-hash
+          active-class="text-primary"
+          >{{ link.label }}</u-link
+        >
+
+        <template #fallback>
+          <u-link
+            v-for="link in navLinks"
+            :key="link.hash + '-fallback'"
+            :to="{ path: '/about', hash: link.hash }"
+            >{{ link.label }}</u-link
+          >
+        </template>
+      </client-only>
     </u-container>
   </header>
   <main>

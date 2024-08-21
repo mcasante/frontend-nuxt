@@ -11,4 +11,15 @@ export default defineNuxtConfig({
       baseApiUrl: process.env.BASE_API_URL,
     },
   },
+  app: {
+    pageTransition: {
+      name: "page",
+      mode: "out-in",
+    },
+  },
+  router: {
+    options: {
+      scrollBehaviorType: "smooth",
+    },
+  },
 });
