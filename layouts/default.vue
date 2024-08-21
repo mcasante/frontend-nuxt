@@ -1,15 +1,37 @@
 <script setup lamg="ts">
+import { useWindowScroll, watchDebounced } from "@vueuse/core";
+
 const navLinks = [
   { label: "the frontend", hash: "#frontend" },
   { label: "the backend", hash: "#backend" },
   { label: "about me", hash: "#about-me" },
 ];
+
+const { y } = useWindowScroll();
+
+const isScrollingUp = ref(false);
+watchDebounced(
+  y,
+  (value, oldValue) => {
+    isScrollingUp.value = value < oldValue;
+  },
+  { debounce: 500, maxWait: 250 }
+);
+
+const transform = computed(() => {
+  if (isScrollingUp.value || y.value < 100) {
+    return `translateY(0%)`;
+  }
+
+  return "translateY(-100%)";
+});
 </script>
 
 <template>
   <header
-    class="flex justify-center shadow-md"
+    class="flex justify-center items-center shadow-md transition-all duration-300 w-full left-0 fixed top-0 z-50 bg-white"
     style="box-shadow: 0 0 24px 0 rgb(230, 230, 230)"
+    :style="{ transform }"
   >
     <u-container class="py-6 flex gap-4 justify-end">
       <u-link
@@ -43,7 +65,7 @@ const navLinks = [
       </client-only>
     </u-container>
   </header>
-  <main>
+  <main class="mt-20">
     <u-container class="py-8">
       <slot />
     </u-container>
