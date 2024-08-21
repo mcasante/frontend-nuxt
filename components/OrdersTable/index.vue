@@ -76,12 +76,14 @@ const emit = defineEmits<{
               results
             </span>
           </div>
-          <UPagination
-            :model-value="props.page"
-            :page-count="props.pageCount"
-            :total="props.total"
-            @update:modelValue="$emit('update:page', $event)"
-          />
+          <client-only>
+            <UPagination
+              :model-value="props.page"
+              :page-count="props.pageCount"
+              :total="props.total"
+              @update:modelValue="$emit('update:page', $event)"
+            />
+          </client-only>
         </div>
       </template>
     </u-card>
