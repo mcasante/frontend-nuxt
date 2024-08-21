@@ -13,6 +13,14 @@ const props = defineProps<{
   pending: boolean;
 }>();
 
+const formattedOrders = computed(() => {
+  if (!props.orders) return;
+  return props.orders.map((order) => ({
+    ...order,
+    price: `$${formatCurrency(order.price)}`,
+  }));
+});
+
 const columns = [
   { key: "orderId", label: "Order ID", sortable: true },
   { key: "product", label: "Product", sortable: true },
@@ -43,37 +51,53 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <u-card>
-    <u-table
-      sort-mode="manual"
-      :loading-state="loadingStateProps"
-      :progress="progressProps"
-      :columns="columns"
-      :rows="props.orders!"
-      :loading="props.pending"
-      :sort="props.sort"
-      @update:sort="$emit('update:sort', $event)"
-    />
-    <template #footer>
-      <div class="flex flex-wrap justify-between items-center px-3 mb-4">
-        <div>
-          <span class="text-sm leading-5">
-            Showing
-            <span class="font-medium">{{ pageFrom }}</span>
-            to
-            <span class="font-medium">{{ pageTo }}</span>
-            of
-            <span class="font-medium">{{ props.total }}</span>
-            results
-          </span>
+  <div class="glow relative">
+    <u-card>
+      <u-table
+        sort-mode="manual"
+        :loading-state="loadingStateProps"
+        :progress="progressProps"
+        :columns="columns"
+        :rows="formattedOrders!"
+        :loading="props.pending"
+        :sort="props.sort"
+        @update:sort="$emit('update:sort', $event)"
+      />
+      <template #footer>
+        <div class="flex flex-wrap justify-between items-center px-3 mb-4">
+          <div>
+            <span class="text-sm leading-5">
+              Showing
+              <span class="font-medium">{{ pageFrom }}</span>
+              to
+              <span class="font-medium">{{ pageTo }}</span>
+              of
+              <span class="font-medium">{{ props.total }}</span>
+              results
+            </span>
+          </div>
+          <UPagination
+            :model-value="props.page"
+            :page-count="props.pageCount"
+            :total="props.total"
+            @update:modelValue="$emit('update:page', $event)"
+          />
         </div>
-        <UPagination
-          :model-value="props.page"
-          :page-count="props.pageCount"
-          :total="props.total"
-          @update:modelValue="$emit('update:page', $event)"
-        />
-      </div>
-    </template>
-  </u-card>
+      </template>
+    </u-card>
+  </div>
 </template>
+
+<style scoped>
+.glow:before {
+  content: "";
+  background: radial-gradient(closest-side, rgb(192, 57, 255), transparent);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-10%, -5%);
+  width: 125%;
+  height: 110%;
+  z-index: -1;
+}
+</style>

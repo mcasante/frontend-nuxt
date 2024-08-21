@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import type { Seller } from "~/types";
 
+useSeoMeta({
+  title: "Dashboard",
+  ogTitle: "Dashboard",
+  description: "This is the dashboard page.",
+  ogDescription: "This is the dashboard page.",
+});
+
 const sellers = await $fetch<Seller.ISeller[]>("/api/sellers");
 
 const { sort, page, sellerIds, pageCount, total, orders, pending } =
@@ -26,7 +33,7 @@ watch(selectedSellers, () => {
       <seller-card v-for="seller in sellers" :seller="seller" />
     </div>
 
-    <div class="flex justify-end mt-8 mb-4">
+    <div class="flex justify-end gap-2 mt-8 mb-4">
       <USelectMenu
         v-if="sellers.length > 1"
         :options="sellerOptions"
@@ -35,6 +42,16 @@ watch(selectedSellers, () => {
         multiple
         value-attribute="id"
       />
+
+      <UButton
+        icon="i-heroicons-funnel"
+        color="gray"
+        size="xs"
+        :disabled="!selectedSellers.length"
+        @click="selectedSellers = []"
+      >
+        Reset
+      </UButton>
     </div>
 
     <orders-table
