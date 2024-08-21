@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type { Order, Seller, TableSort } from "~/types";
-
-type OrderTableSort = TableSort<Order.SortBy, Lowercase<Order.SortOrder>>;
+import type { Seller } from "~/types";
 
 const sellers = await $fetch<Seller.ISeller[]>("/api/sellers");
 
