@@ -1,7 +1,7 @@
 <script setup lamg="ts">
 const navLinks = [
-  { label: "the backend", hash: "#backend" },
   { label: "the frontend", hash: "#frontend" },
+  { label: "the backend", hash: "#backend" },
   { label: "about me", hash: "#about-me" },
 ];
 </script>
@@ -12,7 +12,12 @@ const navLinks = [
     style="box-shadow: 0 0 24px 0 rgb(230, 230, 230)"
   >
     <u-container class="py-6 flex gap-4 justify-end">
-      <u-link to="/" class="text-2xl text-primary font-bold mr-auto">
+      <u-link
+        active-class="emphasis"
+        inactive-class="text-primary"
+        to="/"
+        class="text-2xl font-bold mr-auto transition"
+      >
         <h1>Dashboard</h1>
       </u-link>
 
@@ -22,7 +27,8 @@ const navLinks = [
           :key="link.hash"
           :to="{ path: '/about', hash: link.hash }"
           exact-hash
-          active-class="text-primary"
+          active-class="emphasis"
+          class="transition hover:text-primary"
           >{{ link.label }}</u-link
         >
 
