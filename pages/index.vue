@@ -58,4 +58,15 @@ watch(selectedSellers, () => {
   opacity: 0;
   filter: blur(1rem);
 }
+
+.emphasis {
+  color: rgb(237, 65, 54);
+  background: linear-gradient(90deg, rgb(237, 65, 54), rgb(162, 41, 185)) text;
+  -webkit-text-fill-color: transparent;
+}
+
+em {
+  font-style: normal;
+  transition: all 0.4s;
+}
 </style>
